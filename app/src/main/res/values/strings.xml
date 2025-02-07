@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Proyecto</string>
+    <string name="login">Inicio de Sesión</string>
+    <string name="cancel">Cancelar</string>
+    <string name="log_in">Acceder</string>
+    <string name="enter_the_email">Introduce el email</string>
+    <string name="enter_the_password">Introduce la contraseña</string>
+    <string name="register">Registrar</string>
+    <string name="enter_your_name">Introduce tu nombre</string>
+    <string name="obligatory">Obligatorio</string>
+</resources>

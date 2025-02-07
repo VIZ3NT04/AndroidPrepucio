@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="log_in">Log In</string>
+    <string name="enter_the_email">Enter the email</string>
+    <string name="enter_the_password">Enter the password</string>
+    <string name="register">Register</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="obligatory">Obligatory</string>
+</resources>
