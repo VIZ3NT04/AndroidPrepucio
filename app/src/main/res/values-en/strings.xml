@@ -8,5 +8,5 @@
     <string name="enter_the_password">Enter the password</string>
     <string name="register">Register</string>
     <string name="enter_your_name">Enter your name</string>
-    <string name="obligatory">Obligatory</string>
+    <string name="required">Required</string>
 </resources>

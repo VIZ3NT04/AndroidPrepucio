@@ -19,8 +19,25 @@ class LogInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAccept.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val txtEmail = binding.txtEmail.text.toString()
+            val txtPassword = binding.txtPassword.text.toString()
+
+            var correct = true
+
+            if (txtEmail.isEmpty()) {
+                binding.txtEmail.error = "El email no puede estar vacio"
+                correct = false
+            }
+
+            if (txtPassword.isEmpty()) {
+                binding.txtPassword.error = "La contraseña no puede estar vacia"
+                correct = false
+            }
+
+            if (correct) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         binding.btnCancel.setOnClickListener {
