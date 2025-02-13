@@ -8,7 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyecto.R
+import com.example.proyecto.api.RetrofitInstance
+import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityRegisterBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -42,8 +47,25 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             if (correct) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val user = User(
+                            id = 0,
+                            name = txtName,
+                            email = txtEmail,
+                            password = txtPassword
+                        )
+                        val retrofit = RetrofitInstance.api.registerUser(user)
+                        runOnUiThread {
+                            //println(retrofit.name+retrofit.email+retrofit.password)
+                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    } catch (e: Exception) {
+                        println("Error "+e)
+                    }
+                }
             }
         }
 

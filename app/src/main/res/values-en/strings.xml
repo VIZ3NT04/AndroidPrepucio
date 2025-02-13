@@ -9,4 +9,19 @@
     <string name="register">Register</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="required">Required</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="sell">Sell</string>
+    <string name="messages">Messages</string>
+    <string name="categories">Categories</string>
+    <string name="prod_name">Product</string>
+    <string name="nombre_vendedor">NOMBRE VENDEDOR</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="best_rated">Best Rated</string>
+    <string name="new_products">New Products</string>
+    <string name="category">Category</string>
+    <string name="tag">Tag</string>
+    <string name="price">Price</string>
+    <string name="distance">Distance</string>
+
 </resources>

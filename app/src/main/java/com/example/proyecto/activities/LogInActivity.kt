@@ -2,12 +2,17 @@ package com.example.proyecto.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyecto.R
+import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.databinding.ActivityLogInBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLogInBinding
@@ -35,8 +40,28 @@ class LogInActivity : AppCompatActivity() {
             }
 
             if (correct) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val retrofit = RetrofitInstance.api.loginUser(txtEmail, txtPassword)
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@LogInActivity,
+                                "Bienvenido, ${retrofit.name}  ${retrofit.email}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            this@LogInActivity,
+                            "Usuario no encontrado",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         }
 

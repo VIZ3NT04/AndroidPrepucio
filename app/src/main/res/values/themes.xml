@@ -5,9 +5,13 @@
         <item name="colorPrimary">@color/primary</item>
     </style>
 
-    <style name="ProjectTheme" parent="Base.Theme.Proyecto" />
+    <style name="ProjectTheme" parent="Base.Theme.Proyecto"/>
 
     <style name="ProjectTheme.Title">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">27sp</item>
+    </style>
+
+    <style name="ProjectTheme.Small">
+        <item name="android:textSize">13sp</item>
     </style>
 </resources>
