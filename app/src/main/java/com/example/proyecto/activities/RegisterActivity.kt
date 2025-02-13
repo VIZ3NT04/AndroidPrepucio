@@ -2,6 +2,7 @@ package com.example.proyecto.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,12 @@ import com.example.proyecto.R
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityRegisterBinding
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -46,6 +50,8 @@ class RegisterActivity : AppCompatActivity() {
                 correct = false
             }
 
+            println(txtEmail+txtPassword+txtName)
+
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -55,17 +61,20 @@ class RegisterActivity : AppCompatActivity() {
                             email = txtEmail,
                             password = txtPassword
                         )
+
                         val retrofit = RetrofitInstance.api.registerUser(user)
                         runOnUiThread {
-                            //println(retrofit.name+retrofit.email+retrofit.password)
                             val intent = Intent(this@RegisterActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
-                    } catch (e: Exception) {
-                        println("Error "+e)
+                    } catch (e: HttpException) {
+                        val errorBody = e.response()?.errorBody()?.string()
+                        Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
                     }
                 }
+
+
             }
         }
 
