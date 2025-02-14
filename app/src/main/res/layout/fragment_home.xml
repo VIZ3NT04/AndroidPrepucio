@@ -69,7 +69,7 @@
             android:scrollbars="vertical"
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_producto"/>
+            tools:listitem="@layout/item_product"/>
 
 
         <TextView
@@ -94,7 +94,7 @@
             android:scrollbars="vertical"
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_producto"/>
+            tools:listitem="@layout/item_product"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

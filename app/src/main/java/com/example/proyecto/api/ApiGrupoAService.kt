@@ -15,4 +15,7 @@ interface ApiGrupoAService {
 
     @POST("usuarios")
     suspend fun registerUser(@Body user: User): User
+
+    @GET("productos")
+    suspend fun listProducts(): List<Product>
 }

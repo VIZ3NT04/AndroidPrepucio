@@ -64,6 +64,12 @@ class RegisterActivity : AppCompatActivity() {
 
                         val retrofit = RetrofitInstance.api.registerUser(user)
                         runOnUiThread {
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Gracias por registrarte, ${retrofit.name}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
                             val intent = Intent(this@RegisterActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -71,6 +77,12 @@ class RegisterActivity : AppCompatActivity() {
                     } catch (e: HttpException) {
                         val errorBody = e.response()?.errorBody()?.string()
                         Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
+
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Ha habido un error en las autenticaciones",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 

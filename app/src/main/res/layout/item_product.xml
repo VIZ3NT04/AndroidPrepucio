@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtNombre"
+                android:id="@+id/txtName"
                 app:layout_constraintTop_toBottomOf="@+id/txtPrice"
                 app:layout_constraintStart_toStartOf="@+id/txtPrice"
                 android:text="Tabla de Surf"

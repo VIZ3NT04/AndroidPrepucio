@@ -2,6 +2,7 @@ package com.example.proyecto.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.example.proyecto.databinding.ActivityLogInBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLogInBinding
@@ -54,12 +56,17 @@ class LogInActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this@LogInActivity,
-                            "Usuario no encontrado",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    } catch (e: HttpException) {
+                        val errorBody = e.response()?.errorBody()?.string()
+                        Log.e("Login", "Error HTTP ${e.code()}: $errorBody")
+                        /*runOnUiThread {
+
+                            Toast.makeText(
+                                this@LogInActivity,
+                                "Usuario no encontrado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }*/
                     }
                 }
             }
