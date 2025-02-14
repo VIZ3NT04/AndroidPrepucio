@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val frgHome: HomeFragment =
-            HomeFragment.newInstance()
+            HomeFragment.newInstance(user)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragments, frgHome)
             .commit()
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.nav_fav -> {
                     val frgFav: FavoritesFragment =
-                        FavoritesFragment.newInstance(user)
+                        FavoritesFragment.newInstance()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, frgFav)
                         .commit()

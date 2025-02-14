@@ -77,6 +77,7 @@ class HomeFragment : Fragment() {
 
         iconCat.setOnClickListener {
             val intent = Intent(context, CategoriesActivity::class.java)
+            intent.putExtra("User", user)
             startActivity(intent)
         }
 

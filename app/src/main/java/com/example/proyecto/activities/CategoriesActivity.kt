@@ -1,31 +1,25 @@
 package com.example.proyecto.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto.R
 import com.example.proyecto.adapters.CategoryAdapter
-import com.example.proyecto.adapters.ProductsAdapter
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
-import com.example.proyecto.databinding.ActivityCategoryBinding
-import com.example.proyecto.databinding.ActivityMainBinding
-import com.example.proyecto.databinding.FragmentHomeBinding
-import com.google.android.material.navigation.NavigationView
+import com.example.proyecto.databinding.ActivityCategoriesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class CategoriesActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCategoryBinding
+    private lateinit var binding: ActivityCategoriesBinding
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var user: User
@@ -33,6 +27,17 @@ class CategoriesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        binding = ActivityCategoriesBinding.inflate(layoutInflater)
+        user = intent.getSerializableExtra("User") as User
+
+        val iconBack = binding.icnBack
+
+        iconBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("User", user)
+            startActivity(intent)
+        }
 
         gridLayoutManager = GridLayoutManager(this,2)
 
@@ -42,7 +47,7 @@ class CategoriesActivity : AppCompatActivity() {
 
                 categoryAdapter = CategoryAdapter(categories)
 
-                binding.recyclerProducts.apply {
+                binding.recyclerCategories.apply {
                     layoutManager = gridLayoutManager
                     adapter = categoryAdapter
                 }
