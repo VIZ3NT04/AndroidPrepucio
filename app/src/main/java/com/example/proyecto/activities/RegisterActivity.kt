@@ -55,34 +55,35 @@ class RegisterActivity : AppCompatActivity() {
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val user = User(
-                            id = 0,
+                        val newUser = User(
                             name = txtName,
                             email = txtEmail,
                             password = txtPassword
                         )
 
-                        val retrofit = RetrofitInstance.api.registerUser(user)
+                        val user = RetrofitInstance.api.registerUser(newUser)
                         runOnUiThread {
                             Toast.makeText(
                                 this@RegisterActivity,
-                                "Gracias por registrarte, ${retrofit.name}",
+                                "Gracias por registrarte, ${user.name}",
                                 Toast.LENGTH_SHORT
                             ).show()
 
                             val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                            intent.putExtra("User", user)
                             startActivity(intent)
-                            finish()
                         }
                     } catch (e: HttpException) {
                         val errorBody = e.response()?.errorBody()?.string()
                         Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
 
-                        Toast.makeText(
-                            this@RegisterActivity,
-                            "Ha habido un error en las autenticaciones",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        runOnUiThread {
+                             Toast.makeText(
+                                this@RegisterActivity,
+                                "Ha habido un error en las autenticaciones",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
 

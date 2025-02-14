@@ -44,29 +44,29 @@ class LogInActivity : AppCompatActivity() {
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val retrofit = RetrofitInstance.api.loginUser(txtEmail, txtPassword)
+                        val user = RetrofitInstance.api.loginUser(txtEmail, txtPassword)
                         runOnUiThread {
                             Toast.makeText(
                                 this@LogInActivity,
-                                "Bienvenido, ${retrofit.name}  ${retrofit.email}",
+                                "Bienvenido, ${user.name}  ${user.email}",
                                 Toast.LENGTH_SHORT
                             ).show()
 
                             val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                            intent.putExtra("User", user)
                             startActivity(intent)
-                            finish()
                         }
                     } catch (e: HttpException) {
                         val errorBody = e.response()?.errorBody()?.string()
                         Log.e("Login", "Error HTTP ${e.code()}: $errorBody")
-                        /*runOnUiThread {
 
+                        runOnUiThread {
                             Toast.makeText(
                                 this@LogInActivity,
                                 "Usuario no encontrado",
                                 Toast.LENGTH_SHORT
                             ).show()
-                        }*/
+                        }
                     }
                 }
             }

@@ -18,4 +18,7 @@ interface ApiGrupoAService {
 
     @GET("productos")
     suspend fun listProducts(): List<Product>
+
+    @GET("categorias")
+    suspend fun listCategories(): List<Category>
 }

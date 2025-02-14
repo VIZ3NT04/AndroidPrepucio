@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto.R
 import com.example.proyecto.activities.CategoriesActivity
@@ -28,19 +30,35 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var productsAdapter: ProductsAdapter
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var user: User
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            user = it.getSerializable("User") as User
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        linearLayoutManager = LinearLayoutManager(context)
 
         drawerLayout = binding.main
 
         val navigationView: NavigationView = binding.navMenu
         navigationView.setCheckedItem(R.id.nav_home)
+
+        val headerView = navigationView.getHeaderView(0)
+        val txtUserName = headerView.findViewById<TextView>(R.id.userName)
+        val txtUserEmail = headerView.findViewById<TextView>(R.id.userEmail)
+
+        txtUserName.text = user.name
+        txtUserEmail.text = user.email
+
+
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -71,15 +89,13 @@ class HomeFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val products = RetrofitInstance.api.listProducts()
-                Thread {
 
-                    productsAdapter = ProductsAdapter(products)
-                    linearLayoutManager = LinearLayoutManager(context)
+                productsAdapter = ProductsAdapter(products)
+                gridLayoutManager = GridLayoutManager(context,2)
 
-                    binding.recyclerProducts.apply {
-                        layoutManager = linearLayoutManager
-                        adapter = productsAdapter
-                    }
+                binding.recyclerProducts.apply {
+                    layoutManager = gridLayoutManager
+                    adapter = productsAdapter
                 }
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()
@@ -92,9 +108,10 @@ class HomeFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(u: User) =
             HomeFragment().apply {
                 arguments = Bundle().apply {
+                    putSerializable("User", u)
                 }
             }
     }

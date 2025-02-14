@@ -6,16 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyecto.R
+import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.fragments.FavoritesFragment
 import com.example.proyecto.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var user: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
+        user = intent.getSerializableExtra("User") as User
+
         setContentView(binding.root)
 
         val frgHome: HomeFragment =
@@ -30,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     val fragHome: HomeFragment =
-                        HomeFragment.newInstance()
+                        HomeFragment.newInstance(user)
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, fragHome)
                         .commit()
@@ -38,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.nav_fav -> {
                     val frgFav: FavoritesFragment =
-                        FavoritesFragment.newInstance()
+                        FavoritesFragment.newInstance(user)
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, frgFav)
                         .commit()
