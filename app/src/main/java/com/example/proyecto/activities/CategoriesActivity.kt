@@ -31,6 +31,8 @@ class CategoriesActivity : AppCompatActivity() {
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         user = intent.getSerializableExtra("User") as User
 
+        setContentView(binding.root)
+
         val iconBack = binding.icnBack
 
         iconBack.setOnClickListener {

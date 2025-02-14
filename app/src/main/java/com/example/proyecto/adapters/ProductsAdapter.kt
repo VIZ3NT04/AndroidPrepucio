@@ -9,7 +9,7 @@ import com.example.proyecto.R
 import com.example.proyecto.api.Product
 import com.example.proyecto.databinding.ItemProductBinding
 
-class ProductsAdapter (private val products: List<Product>?/*, private val listener: OnClickListener*/):
+class ProductsAdapter (private val products: List<Product>?, private val listener: OnClickListener):
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -18,7 +18,7 @@ class ProductsAdapter (private val products: List<Product>?/*, private val liste
         val binding = ItemProductBinding.bind(view)
         fun setListener(product: Product){
             binding.root.setOnClickListener {
-                //listener.onClick(movimiento)
+                listener.onClick(product)
             }
         }
     }
@@ -37,7 +37,7 @@ class ProductsAdapter (private val products: List<Product>?/*, private val liste
         val product = products?.get(position) as Product
 
         with(holder) {
-            //setListener(movimiento)
+            setListener(product)
             binding.txtPrice.text = product.price.toString()
             binding.txtName.text = product.name
         }

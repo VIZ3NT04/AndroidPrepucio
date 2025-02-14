@@ -1,17 +1,21 @@
 package com.example.proyecto.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyecto.R
+import com.example.proyecto.api.Product
 import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.fragments.FavoritesFragment
 import com.example.proyecto.fragments.HomeFragment
+import com.example.proyecto.fragments.ProductsListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProductsListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var user: User
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragments, frgHome)
             .commit()
+        frgHome.setProductsListener(this)
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             it.isChecked = true
@@ -75,6 +80,14 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
+        }
+    }
+
+    override fun onProductSelected(product: Product) {
+        if (product != null) {
+            val intent = Intent(this, ProductActivity::class.java)
+            intent.putExtra("Product", product)
+            startActivity(intent)
         }
     }
 }

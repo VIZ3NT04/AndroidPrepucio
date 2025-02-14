@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto.R
 import com.example.proyecto.activities.CategoriesActivity
 import com.example.proyecto.activities.MainActivity
+import com.example.proyecto.adapters.OnClickListener
 import com.example.proyecto.adapters.ProductsAdapter
+import com.example.proyecto.api.Product
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
 import com.example.proyecto.databinding.FragmentHomeBinding
@@ -26,11 +28,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var productsAdapter: ProductsAdapter
     private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var listener: ProductsListener
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        var products:List<Product> = listOf()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                products = RetrofitInstance.api.listProducts()
+
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
+            }
+        }
 
         drawerLayout = binding.main
 
@@ -87,24 +102,27 @@ class HomeFragment : Fragment() {
         }
 
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val products = RetrofitInstance.api.listProducts()
+        gridLayoutManager = GridLayoutManager(context,2)
+        productsAdapter = ProductsAdapter(products, this)
 
-                productsAdapter = ProductsAdapter(products)
-                gridLayoutManager = GridLayoutManager(context,2)
-
-                binding.recyclerProducts.apply {
-                    layoutManager = gridLayoutManager
-                    adapter = productsAdapter
-                }
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
-            }
+        binding.recyclerProducts.apply {
+            layoutManager = gridLayoutManager
+            adapter = productsAdapter
         }
 
         return binding.root
+    }
+
+    fun setProductsListener(listener: ProductsListener) {
+        this.listener = listener
+    }
+
+    override fun onClick(obj: Any) {
+        val product: Product = obj as Product
+
+        if (listener != null) {
+            listener.onProductSelected(product)
+        }
     }
 
     companion object {
