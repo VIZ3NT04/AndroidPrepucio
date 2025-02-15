@@ -11,11 +11,15 @@
             <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_edit"
-                android:title="Editar cuenta" />
+                android:title="@string/edit_account" />
             <item
                 android:id="@+id/nav_products"
+                android:icon="@drawable/ic_tag"
+                android:title="@string/products"/>
+            <item
+                android:id="@+id/nav_premium"
                 android:icon="@drawable/ic_star"
-                android:title="Productos"/>
+                android:title="@string/become_premium"/>
         </menu>
     </item>
 
@@ -23,11 +27,11 @@
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Configuración"/>
+            android:title="@string/settings"/>
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_user"
-            android:title="Sobre Nosotros"/>
+            android:title="@string/about_us"/>
     </group>
 
 </menu>

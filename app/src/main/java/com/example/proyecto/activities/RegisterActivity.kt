@@ -50,8 +50,6 @@ class RegisterActivity : AppCompatActivity() {
                 correct = false
             }
 
-            println(txtEmail+txtPassword+txtName)
-
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {

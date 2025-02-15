@@ -149,7 +149,7 @@
                 android:id="@+id/btnChat"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:text="Chat"
+                android:text="@string/chat"
                 android:backgroundTint="@color/pink"
                 android:textColor="@android:color/white"
                 />
@@ -172,7 +172,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Detalles del Producto"
+            android:text="@string/description_of_the_product"
             android:textSize="18sp"
             android:padding="5dp"
             android:layout_marginStart="20dp"
@@ -209,7 +209,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Envio en 2-5 días"
+            android:text="@string/shipping_in_2_5_days"
             android:textSize="18sp"
             android:padding="7dp"
             android:layout_marginStart="20dp"
@@ -221,7 +221,7 @@
         android:id="@+id/btnBuy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COMPRAR"
+        android:text="@string/buy"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

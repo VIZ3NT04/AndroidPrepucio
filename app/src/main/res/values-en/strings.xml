@@ -23,5 +23,19 @@
     <string name="tag">Tag</string>
     <string name="price">Price</string>
     <string name="distance">Distance</string>
+    <string name="edit_account">Edit account</string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About us</string>
+    <string name="products">Products</string>
+    <string name="become_premium">Become premium</string>
+    <string name="sell_a_product">Sell A Product</string>
+    <string name="add_images">Add photos</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="chat">Chat</string>
+    <string name="description_of_the_product">Description of the product</string>
+    <string name="shipping_in_2_5_days">Shipping in 2-5 days</string>
+    <string name="buy">Buy</string>
+    <string name="upload">Upload</string>
 
 </resources>

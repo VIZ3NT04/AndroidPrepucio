@@ -9,7 +9,7 @@ import com.example.proyecto.R
 import com.example.proyecto.api.Category
 import com.example.proyecto.databinding.ItemCategoryBinding
 
-class CategoryAdapter (private val category: List<Category>?/*, private val listener: OnClickListener*/):
+class CategoryAdapter (private val category: List<Category>?, private val listener: OnClickListener):
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -37,7 +37,7 @@ class CategoryAdapter (private val category: List<Category>?/*, private val list
         val category = category?.get(position) as Category
 
         with(holder) {
-            //setListener(movimiento)
+            setListener(category)
             binding.txtNameCat.text = category.name
         }
     }

@@ -1,4 +1,4 @@
-package com.example.proyecto.fragments
+package com.example.proyecto.adapters
 
 import com.example.proyecto.api.Product
 

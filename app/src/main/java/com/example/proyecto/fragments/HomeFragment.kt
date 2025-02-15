@@ -12,12 +12,11 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto.R
 import com.example.proyecto.activities.CategoriesActivity
-import com.example.proyecto.activities.MainActivity
 import com.example.proyecto.adapters.OnClickListener
 import com.example.proyecto.adapters.ProductsAdapter
+import com.example.proyecto.adapters.ProductsListener
 import com.example.proyecto.api.Product
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User

@@ -2,7 +2,6 @@ package com.example.proyecto.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,7 +12,8 @@ import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.fragments.FavoritesFragment
 import com.example.proyecto.fragments.HomeFragment
-import com.example.proyecto.fragments.ProductsListener
+import com.example.proyecto.adapters.ProductsListener
+import com.example.proyecto.fragments.SellFragment
 
 class MainActivity : AppCompatActivity(), ProductsListener {
     private lateinit var binding: ActivityMainBinding
@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity(), ProductsListener {
                 }
 
                 R.id.nav_sell -> {
-                    /*val frgRoom: RoomFragment =
-                        RoomFragment.newInstance()
+                    val frgSell: SellFragment =
+                        SellFragment.newInstance(user)
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.contenedor, frgRoom)
-                        .commit()*/
+                        .replace(R.id.fragments, frgSell)
+                        .commit()
                 }
 
                 R.id.nav_message -> {
