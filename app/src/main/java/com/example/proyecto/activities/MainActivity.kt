@@ -2,10 +2,14 @@ package com.example.proyecto.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.proyecto.R
 import com.example.proyecto.api.Product
 import com.example.proyecto.api.User
@@ -15,10 +19,12 @@ import com.example.proyecto.fragments.HomeFragment
 import com.example.proyecto.adapters.ProductsListener
 import com.example.proyecto.fragments.ProfileFragment
 import com.example.proyecto.fragments.SellFragment
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), ProductsListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var user: User
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +80,6 @@ class MainActivity : AppCompatActivity(), ProductsListener {
             false
         }
 
-/*
         drawerLayout = binding.main
 
         val navigationView: NavigationView = binding.navMenu
@@ -92,16 +97,23 @@ class MainActivity : AppCompatActivity(), ProductsListener {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    Toast.makeText(context, "Home seleccionado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Home seleccionado", Toast.LENGTH_SHORT).show()
                 }
                 R.id.nav_settings -> {
-                    Toast.makeText(context, "Configuración seleccionada", Toast.LENGTH_SHORT).show()
+                    /*val intent = Intent(this, ProductActivity::class.java)
+                    intent.putExtra("Product", product)
+                    startActivity(intent)*/
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-*/
+
+        val iconDrawer = binding.navDrawer
+        iconDrawer.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)

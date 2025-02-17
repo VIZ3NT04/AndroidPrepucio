@@ -29,7 +29,6 @@ import retrofit2.HttpException
 
 class HomeFragment : Fragment(), OnClickListener {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var drawerLayout: DrawerLayout
     private lateinit var productsAdapter: ProductsAdapter
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var listener: ProductsListener
@@ -47,45 +46,13 @@ class HomeFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-/*
-        drawerLayout = binding.main
 
-        val navigationView: NavigationView = binding.navMenu
-        navigationView.setCheckedItem(R.id.nav_home)
-
-        val headerView = navigationView.getHeaderView(0)
-        val txtUserName = headerView.findViewById<TextView>(R.id.userName)
-        val txtUserEmail = headerView.findViewById<TextView>(R.id.userEmail)
-
-        txtUserName.text = user.name
-        txtUserEmail.text = user.email
-
-
-
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(context, "Home seleccionado", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_settings -> {
-                    Toast.makeText(context, "Configuración seleccionada", Toast.LENGTH_SHORT).show()
-                }
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-*/
         val iconCat = binding.icon
 
         iconCat.setOnClickListener {
             val intent = Intent(context, CategoriesActivity::class.java)
             intent.putExtra("User", user)
             startActivity(intent)
-        }
-
-        val iconDrawer = binding.navDrawer
-        iconDrawer.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
         }
 
         var products:List<Product> = listOf()
