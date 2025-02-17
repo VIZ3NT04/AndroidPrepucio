@@ -47,19 +47,7 @@ class HomeFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        var products:List<Product> = listOf()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                products = RetrofitInstance.api.listProducts()
-
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
-            }
-        }
-
+/*
         drawerLayout = binding.main
 
         val navigationView: NavigationView = binding.navMenu
@@ -86,7 +74,7 @@ class HomeFragment : Fragment(), OnClickListener {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
+*/
         val iconCat = binding.icon
 
         iconCat.setOnClickListener {
@@ -100,6 +88,19 @@ class HomeFragment : Fragment(), OnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        var products:List<Product> = listOf()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                products = RetrofitInstance.api.listProducts()
+
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
+            }
+        }
+
+        Thread.sleep(200)
 
         gridLayoutManager = GridLayoutManager(context,2)
         productsAdapter = ProductsAdapter(products, this)

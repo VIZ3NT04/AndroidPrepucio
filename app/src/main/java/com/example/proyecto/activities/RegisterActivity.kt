@@ -56,10 +56,12 @@ class RegisterActivity : AppCompatActivity() {
                         val newUser = User(
                             name = txtName,
                             email = txtEmail,
-                            password = txtPassword
+                            password = txtPassword,
+                            poblacion = "Aiacor"
                         )
 
                         val user = RetrofitInstance.api.registerUser(newUser)
+
                         runOnUiThread {
                             Toast.makeText(
                                 this@RegisterActivity,

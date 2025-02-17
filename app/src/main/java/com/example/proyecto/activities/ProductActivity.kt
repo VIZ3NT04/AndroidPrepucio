@@ -27,7 +27,7 @@ class ProductActivity : AppCompatActivity() {
 
         binding.priceProd.text = product.price.toString()
         binding.nameProd.text = product.name
-        binding.nameUser.text = product.user.name
+        //binding.nameUser.text = product.user.name
         binding.textProd.text = product.description
 
 

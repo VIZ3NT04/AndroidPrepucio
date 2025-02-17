@@ -13,6 +13,7 @@ import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.fragments.FavoritesFragment
 import com.example.proyecto.fragments.HomeFragment
 import com.example.proyecto.adapters.ProductsListener
+import com.example.proyecto.fragments.ProfileFragment
 import com.example.proyecto.fragments.SellFragment
 
 class MainActivity : AppCompatActivity(), ProductsListener {
@@ -63,19 +64,44 @@ class MainActivity : AppCompatActivity(), ProductsListener {
                 }
 
                 R.id.nav_message -> {
-                    /*val frgRoom: RoomFragment =
-                        RoomFragment.newInstance()
+                    val frgProfile: ProfileFragment =
+                        ProfileFragment.newInstance(user)
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.contenedor, frgRoom)
-                        .commit()*/
+                        .replace(R.id.fragments, frgProfile)
+                        .commit()
                 }
             }
             false
         }
 
+/*
+        drawerLayout = binding.main
+
+        val navigationView: NavigationView = binding.navMenu
+        navigationView.setCheckedItem(R.id.nav_home)
+
+        val headerView = navigationView.getHeaderView(0)
+        val txtUserName = headerView.findViewById<TextView>(R.id.userName)
+        val txtUserEmail = headerView.findViewById<TextView>(R.id.userEmail)
+
+        txtUserName.text = user.name
+        txtUserEmail.text = user.email
 
 
 
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    Toast.makeText(context, "Home seleccionado", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_settings -> {
+                    Toast.makeText(context, "Configuración seleccionada", Toast.LENGTH_SHORT).show()
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+*/
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)

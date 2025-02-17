@@ -37,5 +37,7 @@
     <string name="shipping_in_2_5_days">Shipping in 2-5 days</string>
     <string name="buy">Buy</string>
     <string name="upload">Upload</string>
+    <string name="antiquity">Antiquity</string>
+    <string name="my_profile">My Profile</string>
 
 </resources>

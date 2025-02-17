@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import com.example.proyecto.R
+import com.example.proyecto.api.Category
 import com.example.proyecto.api.Product
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
@@ -27,7 +28,6 @@ import retrofit2.HttpException
 
 class SellFragment : Fragment() {
     private lateinit var binding: FragmentSellBinding
-    private lateinit var drawerLayout: DrawerLayout
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,18 +43,6 @@ class SellFragment : Fragment() {
     ): View {
         binding = FragmentSellBinding.inflate(inflater, container, false)
 
-        drawerLayout = binding.main
-
-        val navigationView: NavigationView = binding.navMenu
-        navigationView.setCheckedItem(R.id.nav_home)
-
-        val headerView = navigationView.getHeaderView(0)
-        val txtUserName = headerView.findViewById<TextView>(R.id.userName)
-        val txtUserEmail = headerView.findViewById<TextView>(R.id.userEmail)
-
-        txtUserName.text = user.name
-        txtUserEmail.text = user.email
-
         val spinner: Spinner = binding.spCategory
 
 
@@ -64,7 +52,10 @@ class SellFragment : Fragment() {
                     RetrofitInstance.api.listCategories()
                 }
 
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories.map { it.name })
+                val adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item,
+                    categories)
                 spinner.adapter = adapter
 
             } catch (e: HttpException) {
@@ -78,7 +69,8 @@ class SellFragment : Fragment() {
             val txtDesc = binding.txtDescProd.text.toString()
             val txtPrice = binding.txtPriceProd.text.toString()
             val txtName = binding.txtNameProd.text.toString()
-            val spCategory = binding.spCategory.toString()
+            val txtAnt = binding.txtAntiquity.text.toString()
+            val txtCategory = binding.spCategory.selectedItem as Category
 
             var correct = true
 
@@ -100,16 +92,13 @@ class SellFragment : Fragment() {
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val category = RetrofitInstance.api.listCategoryByName(spCategory)
-
                         val newProduct = Product(
                             name = txtName,
                             description = txtDesc,
-                            category = category,
+                            category = txtCategory,
                             price = txtPrice.toFloat(),
                             user = user,
-                            antiquity = TODO(),
-                            maps = TODO()
+                            antiquity = txtAnt
                         )
 
                         val product = RetrofitInstance.api.addProduct(newProduct)
@@ -128,28 +117,6 @@ class SellFragment : Fragment() {
                 }
 
             }
-        }
-
-
-
-
-            navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(context, "Home seleccionado", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_settings -> {
-                    Toast.makeText(context, "Configuración seleccionada", Toast.LENGTH_SHORT).show()
-                }
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
-
-        val iconDrawer = binding.navDrawer
-        iconDrawer.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
         }
 
         return binding.root

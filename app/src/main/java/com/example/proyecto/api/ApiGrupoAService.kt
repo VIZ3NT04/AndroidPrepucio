@@ -25,11 +25,6 @@ interface ApiGrupoAService {
     @GET("categorias")
     suspend fun listCategories(): List<Category>
 
-    @GET("categorias/listarPorNombre")
-    suspend fun listCategoryByName(
-        @Query("name") name: String
-    ): Category
-
     @GET("productos/listarProductosPorCategoria")
     suspend fun listProductsCategory(@Body category: Category): List<Product>
 }

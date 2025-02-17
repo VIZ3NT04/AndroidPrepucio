@@ -8,8 +8,8 @@ data class Product(
     val category:Category,
     val price:Float,
     val user:User,
-    val antiquity:String,
-    val maps:String,
+    val antiquity:String
+    //val maps:String,
     //val etiqueta:List<String>,
     //val foto:List<Photo>
 ) : Serializable
@@ -18,7 +18,11 @@ data class Category(
     val id:Int,
     val name:String,
     val description:String
-): Serializable
+): Serializable {
+    override fun toString(): String {
+        return name
+    }
+}
 
 data class Photo(
     val id:Int,

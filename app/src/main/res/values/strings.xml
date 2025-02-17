@@ -36,5 +36,7 @@
     <string name="shipping_in_2_5_days">Envio de 2-5 dias</string>
     <string name="buy">Comprar</string>
     <string name="upload">Subir</string>
+    <string name="antiquity">Antiguedad</string>
+    <string name="my_profile">Mi Perfil</string>
 
 </resources>
