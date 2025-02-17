@@ -8,12 +8,15 @@
         <item>ESP</item>
         <item>ENG</item>
     </string-array>
-    <string-array name="font">
-        <item>Comic-Sans</item>
-        <item>Arial</item>
+    <string-array name="font_options">
+        <item>Predeterminada</item>
+        <item>Roboto</item>
+        <item>Montserrat</item>
     </string-array>
     <string-array name="font_values">
-        <item>local</item>
-        <item>web</item>
+        <item>default</item>
+        <item>roboto</item>
+        <item>montserrat</item>
     </string-array>
+
 </resources>

@@ -13,7 +13,7 @@
         android:title="@string/sell"
         android:icon="@drawable/ic_add" />
     <item
-        android:id="@+id/nav_message"
+        android:id="@+id/nav_profile"
         android:title="@string/messages"
-        android:icon="@drawable/ic_mail" />
+        android:icon="@drawable/ic_user" />
 </menu>

@@ -119,6 +119,7 @@ class SellFragment : Fragment() {
             }
         }
 
+
         return binding.root
     }
 

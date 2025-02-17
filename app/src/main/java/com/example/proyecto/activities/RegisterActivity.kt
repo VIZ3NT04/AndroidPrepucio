@@ -1,6 +1,8 @@
 package com.example.proyecto.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.preference.PreferenceManager
 import com.example.proyecto.R
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
@@ -18,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.util.Locale
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -32,6 +36,7 @@ class RegisterActivity : AppCompatActivity() {
             val txtEmail = binding.txtEmail.text.toString()
             val txtPassword = binding.txtPassword.text.toString()
             val txtName = binding.txtName.text.toString()
+            val txtLocation = binding.txtLocation.text.toString()
 
             var correct = true
 
@@ -50,6 +55,11 @@ class RegisterActivity : AppCompatActivity() {
                 correct = false
             }
 
+            if (txtLocation.isEmpty()) {
+                binding.txtLocation.error = "El nombre no puede estar vacio"
+                correct = false
+            }
+
             if (correct) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -57,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                             name = txtName,
                             email = txtEmail,
                             password = txtPassword,
-                            poblacion = "Aiacor"
+                            poblacion = txtLocation
                         )
 
                         val user = RetrofitInstance.api.registerUser(newUser)
@@ -102,5 +112,19 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(newBase)
+        val languageCode = sharedPreferences.getString("language", "es") ?: "es"
+
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+
+        val context = newBase.createConfigurationContext(config)
+        super.attachBaseContext(context)
     }
 }

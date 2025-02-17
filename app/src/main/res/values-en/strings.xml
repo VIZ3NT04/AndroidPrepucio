@@ -39,5 +39,7 @@
     <string name="upload">Upload</string>
     <string name="antiquity">Antiquity</string>
     <string name="my_profile">My Profile</string>
+    <string name="enter_your_location">Enter your location</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

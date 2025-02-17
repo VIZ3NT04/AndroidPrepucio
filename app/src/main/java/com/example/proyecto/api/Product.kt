@@ -9,7 +9,6 @@ data class Product(
     val price:Float,
     val user:User,
     val antiquity:String
-    //val maps:String,
     //val etiqueta:List<String>,
     //val foto:List<Photo>
 ) : Serializable

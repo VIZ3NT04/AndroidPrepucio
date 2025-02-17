@@ -38,5 +38,7 @@
     <string name="upload">Subir</string>
     <string name="antiquity">Antiguedad</string>
     <string name="my_profile">Mi Perfil</string>
+    <string name="enter_your_location">Introduce tu localización</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

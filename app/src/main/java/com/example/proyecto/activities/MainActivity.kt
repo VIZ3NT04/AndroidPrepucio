@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity(), ProductsListener {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, fragHome)
                         .commit()
+
+                    binding.title.text = getString(R.string.home)
                 }
 
                 R.id.nav_fav -> {
@@ -59,6 +61,8 @@ class MainActivity : AppCompatActivity(), ProductsListener {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, frgFav)
                         .commit()
+
+                    binding.title.text = getString(R.string.favorites)
                 }
 
                 R.id.nav_sell -> {
@@ -67,14 +71,18 @@ class MainActivity : AppCompatActivity(), ProductsListener {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, frgSell)
                         .commit()
+
+                    binding.title.text = getString(R.string.sell_a_product)
                 }
 
-                R.id.nav_message -> {
+                R.id.nav_profile -> {
                     val frgProfile: ProfileFragment =
                         ProfileFragment.newInstance(user)
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragments, frgProfile)
                         .commit()
+
+                    binding.title.text = getString(R.string.my_profile)
                 }
             }
             false
@@ -97,12 +105,11 @@ class MainActivity : AppCompatActivity(), ProductsListener {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    Toast.makeText(this, "Home seleccionado", Toast.LENGTH_SHORT).show()
+
                 }
                 R.id.nav_settings -> {
-                    /*val intent = Intent(this, ProductActivity::class.java)
-                    intent.putExtra("Product", product)
-                    startActivity(intent)*/
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -121,10 +128,10 @@ class MainActivity : AppCompatActivity(), ProductsListener {
         }
     }
 
-    override fun onProductSelected(product: Product) {
-        if (product != null) {
+    override fun onProductSelected(p: Product) {
+        if (p != null) {
             val intent = Intent(this, ProductActivity::class.java)
-            intent.putExtra("Product", product)
+            intent.putExtra("Product", p)
             startActivity(intent)
         }
     }
