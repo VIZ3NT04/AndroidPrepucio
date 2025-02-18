@@ -40,5 +40,8 @@
     <string name="my_profile">Mi Perfil</string>
     <string name="enter_your_location">Introduce tu localización</string>
     <string name="log_out">Log Out</string>
+    <string name="enter_the_price">Introduce el precio</string>
+    <string name="text_dialog">Te posiciona como vendedor estrella para así salir como vendedor destacado y aumentar la posibilidad de venta de tus productos</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

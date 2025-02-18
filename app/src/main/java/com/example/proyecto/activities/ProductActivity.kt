@@ -5,12 +5,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyecto.R
+import com.example.proyecto.api.CategoryEntity
 import com.example.proyecto.api.Product
+import com.example.proyecto.api.ProductEntity
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
+import com.example.proyecto.api.UserEntity
+import com.example.proyecto.database.ProductApplication
+import com.example.proyecto.database.ProductDatabase
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.databinding.ActivityProductBinding
 import kotlinx.coroutines.CoroutineScope
@@ -58,6 +64,38 @@ class ProductActivity : AppCompatActivity() {
                     Log.e("Producto", "Error HTTP ${e.code()}: $errorBody")
                 }
             }
+        }
+
+
+        val iconHeart = binding.icnHeart
+        iconHeart.setOnClickListener {
+            iconHeart.setImageResource(R.drawable.ic_heart)
+
+            Thread{
+
+                val newUser = UserEntity(
+                    name = product.user.name,
+                    email = product.user.email,
+                    password = product.user.password,
+                    poblacion = product.user.poblacion
+                )
+
+                val newCategory = CategoryEntity(
+                    id = product.category.id,
+                    name = product.category.name,
+                    description = product.category.description
+                )
+
+                val newProduct = ProductEntity(
+                    name = product.name,
+                    description = product.description,
+                    category = newCategory,
+                    price = product.price,
+                    user = newUser,
+                    antiquity = product.antiquity
+                )
+                ProductApplication.database.productDao().addProduct(newProduct)
+            }.start()
         }
 
 

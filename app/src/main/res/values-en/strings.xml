@@ -41,5 +41,8 @@
     <string name="my_profile">My Profile</string>
     <string name="enter_your_location">Enter your location</string>
     <string name="log_out">Log Out</string>
+    <string name="enter_the_price">Enter the price</string>
+    <string name="text_dialog">It positions you as a star seller so that you can emerge as a featured seller and increase the possibility of selling your products.</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

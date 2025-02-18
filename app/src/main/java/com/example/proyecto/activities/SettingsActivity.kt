@@ -1,5 +1,6 @@
 package com.example.proyecto.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.proyecto.R
+import com.example.proyecto.utils.LocaleHelper
 import java.util.Locale
 
 class SettingsActivity : AppCompatActivity() {
@@ -70,16 +72,18 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         private fun updateLanguage(languageCode: String) {
-            val locale = Locale(languageCode)
-            Locale.setDefault(locale)
-
-            val config = resources.configuration
-            config.setLocale(locale)
-            resources.updateConfiguration(config, resources.displayMetrics)
+            LocaleHelper.persistLanguage(requireContext(), languageCode)
 
             activity?.recreate()
         }
+
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LocaleHelper.getSavedLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

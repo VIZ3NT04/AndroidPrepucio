@@ -1,9 +1,13 @@
 package com.example.proyecto.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +23,8 @@ import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityCategoriesBinding
 import com.example.proyecto.databinding.ActivityCategoryBinding
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,6 +73,11 @@ class CategoryActivity : AppCompatActivity(), OnClickListener {
             adapter = productsAdapter
         }
 
+        val chipPrice = findViewById<Chip>(R.id.chipPrice)
+
+        chipPrice.setOnClickListener {
+            showPriceDialog(chipPrice)
+        }
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -74,6 +85,34 @@ class CategoryActivity : AppCompatActivity(), OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun showPriceDialog(chip: Chip) {
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.dialog_price_filter, null)
+        val editText = dialogView.findViewById<EditText>(R.id.editTextPrice)
+
+        AlertDialog.Builder(this)
+            .setTitle("Filtrar por precio")
+            .setView(dialogView)
+            .setPositiveButton("Aplicar") { _, _ ->
+                val price = editText.text.toString()
+                if (price.isNotEmpty()) {
+                    chip.text = "Precio: $$price"
+
+                    /*
+                    val productsFiltered = filterByPrice(price.toFloat())
+                    productsAdapter = ProductsAdapter(productsFiltered, this)
+
+                    binding.recyclerProducts.apply {
+                        layoutManager = gridLayoutManager
+                        adapter = productsAdapter
+                    }
+                    */
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     override fun onClick(obj: Any) {

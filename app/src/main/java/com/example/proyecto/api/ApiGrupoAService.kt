@@ -1,6 +1,5 @@
 package com.example.proyecto.api
 
-import androidx.room.Delete
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -34,4 +33,6 @@ interface ApiGrupoAService {
     // ***********  Cambiar  ************//
     @GET("productos/listarProductosPorCategoria")
     suspend fun listProductsCategory(@Body category: Category): List<Product>
+
+    //@PUT()
 }

@@ -122,7 +122,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txtPriceProd"
-                android:hint="@string/price">
+                android:hint="@string/price"
+                android:inputType="numberDecimal">
 
             </com.google.android.material.textfield.TextInputEditText>
 
