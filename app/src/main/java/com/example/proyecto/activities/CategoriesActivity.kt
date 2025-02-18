@@ -1,5 +1,6 @@
 package com.example.proyecto.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityCategoriesBinding
 import com.example.proyecto.adapters.ProductsListener
 import com.example.proyecto.api.Category
+import com.example.proyecto.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -79,5 +81,10 @@ class CategoriesActivity : AppCompatActivity(), OnClickListener {
         val intent = Intent(this, CategoryActivity::class.java)
         intent.putExtra("Category", category)
         startActivity(intent)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LocaleHelper.getSavedLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
     }
 }

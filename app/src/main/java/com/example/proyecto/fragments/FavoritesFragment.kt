@@ -1,5 +1,6 @@
 package com.example.proyecto.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.example.proyecto.api.User
 import com.example.proyecto.database.ProductApplication
 import com.example.proyecto.databinding.FragmentFavoritesBinding
 import com.example.proyecto.databinding.FragmentHomeBinding
+import com.example.proyecto.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -90,4 +92,5 @@ class FavoritesFragment : Fragment(), OnClickListener {
             listener.onProductSelected(product)
         }
     }
+
 }

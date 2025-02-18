@@ -1,5 +1,6 @@
 package com.example.proyecto.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.example.proyecto.database.ProductApplication
 import com.example.proyecto.database.ProductDatabase
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.databinding.ActivityProductBinding
+import com.example.proyecto.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -104,5 +106,10 @@ class ProductActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LocaleHelper.getSavedLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
     }
 }

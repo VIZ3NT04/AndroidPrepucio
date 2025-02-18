@@ -1,5 +1,6 @@
 package com.example.proyecto.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.example.proyecto.fragments.HomeFragment
 import com.example.proyecto.adapters.ProductsListener
 import com.example.proyecto.fragments.ProfileFragment
 import com.example.proyecto.fragments.SellFragment
+import com.example.proyecto.utils.LocaleHelper
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), ProductsListener {
@@ -150,5 +152,10 @@ class MainActivity : AppCompatActivity(), ProductsListener {
             intent.putExtra("Product", p)
             startActivity(intent)
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LocaleHelper.getSavedLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
     }
 }

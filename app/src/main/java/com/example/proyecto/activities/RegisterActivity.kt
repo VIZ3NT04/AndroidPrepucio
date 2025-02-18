@@ -15,6 +15,7 @@ import com.example.proyecto.R
 import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.api.User
 import com.example.proyecto.databinding.ActivityRegisterBinding
+import com.example.proyecto.utils.LocaleHelper
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -115,16 +116,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(newBase)
-        val languageCode = sharedPreferences.getString("language", "es") ?: "es"
-
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-
-        val config = Configuration()
-        config.setLocale(locale)
-
-        val context = newBase.createConfigurationContext(config)
-        super.attachBaseContext(context)
+        val lang = LocaleHelper.getSavedLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
     }
 }

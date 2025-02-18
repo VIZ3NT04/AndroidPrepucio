@@ -2,29 +2,21 @@ package com.example.proyecto.utils
 
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
+import androidx.preference.PreferenceManager
 import java.util.Locale
 
 object LocaleHelper {
+    fun getSavedLanguage(context: Context): String {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getString("language", "es") ?: "es"
+    }
 
-    fun setLocale(context: Context, language: String): Context {
-        val locale = Locale(language)
+    fun setLocale(context: Context, languageCode: String): Context {
+        val locale = Locale(languageCode)
         Locale.setDefault(locale)
-
         val config = Configuration()
         config.setLocale(locale)
 
         return context.createConfigurationContext(config)
-    }
-
-    fun persistLanguage(context: Context, language: String) {
-        val sharedPreferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString("App_Lang", language).apply()
-    }
-
-    fun getSavedLanguage(context: Context): String {
-        val sharedPreferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("App_Lang", "es") ?: "es"  // Español por defecto
     }
 }

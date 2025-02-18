@@ -5,14 +5,14 @@ import androidx.room.Room
 
 class ProductApplication : Application() {
 
-    companion object{
+    companion object {
         lateinit var database: ProductDatabase
     }
+
     override fun onCreate() {
         super.onCreate()
-        database = Room.databaseBuilder(this,
-            ProductDatabase::class.java,
-            "ProductDatabase")
-            .build()
+        database = Room.databaseBuilder(this, ProductDatabase::class.java, "ProductDatabase").build()
+
     }
+
 }

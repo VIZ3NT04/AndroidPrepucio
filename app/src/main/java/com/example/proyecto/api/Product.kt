@@ -46,9 +46,9 @@ class ProductEntity (
 
 @Entity(tableName = "categories")
 data class CategoryEntity(
-    val id:Int,
-    val name:String,
-    val description:String
+    @ColumnInfo val id:Int,
+    @ColumnInfo val name:String,
+    @ColumnInfo val description:String
 ): Serializable
 
 @Entity(tableName = "users")

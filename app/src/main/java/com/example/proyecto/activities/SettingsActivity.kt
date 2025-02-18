@@ -1,6 +1,7 @@
 package com.example.proyecto.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -9,44 +10,44 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.proyecto.R
-import com.example.proyecto.utils.LocaleHelper
 import java.util.Locale
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
         if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
+            supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
+
         val toolBar = findViewById<Toolbar>(R.id.appbar_settings)
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
     }
+
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            val languagePreference = findPreference<ListPreference>("language")
-
-            languagePreference?.setOnPreferenceChangeListener { _, newValue ->
-                val selectedLanguage = newValue as String
-                updateLanguage(selectedLanguage)
+            findPreference<ListPreference>("language")?.setOnPreferenceChangeListener { _, newValue ->
+                updateLanguage(newValue as String)
                 true
             }
 
-            val fontPreference = findPreference<ListPreference>("font_preference")
-
-            fontPreference?.setOnPreferenceChangeListener { _, newValue ->
-                val selectedFont = newValue as String
-                applyFont(selectedFont)
+            findPreference<ListPreference>("font_preference")?.setOnPreferenceChangeListener { _, newValue ->
+                applyFont(newValue as String)
                 true
             }
+        }
+
+        private fun updateLanguage(languageCode: String) {
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         private fun applyFont(fontName: String) {
@@ -57,9 +58,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             val typeface = ResourcesCompat.getFont(requireContext(), fontResId)
-
             requireActivity().theme.applyStyle(getThemeFromFont(fontName), true)
-
             activity?.recreate()
         }
 
@@ -67,23 +66,10 @@ class SettingsActivity : AppCompatActivity() {
             return when (fontName) {
                 "roboto" -> R.style.ProjectTheme_Roboto
                 "montserrat" -> R.style.ProjectTheme_Montserrat
-                else -> com.google.android.material.R.style.Theme_AppCompat
+                else -> R.style.ProjectTheme_Roboto
             }
         }
-
-        private fun updateLanguage(languageCode: String) {
-            LocaleHelper.persistLanguage(requireContext(), languageCode)
-
-            activity?.recreate()
-        }
-
     }
-
-    override fun attachBaseContext(newBase: Context) {
-        val lang = LocaleHelper.getSavedLanguage(newBase)
-        super.attachBaseContext(LocaleHelper.setLocale(newBase, lang))
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -94,5 +80,5 @@ class SettingsActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }
+
