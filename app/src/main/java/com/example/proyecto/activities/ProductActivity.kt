@@ -21,6 +21,7 @@ import com.example.proyecto.database.ProductDatabase
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.example.proyecto.databinding.ActivityProductBinding
 import com.example.proyecto.utils.LocaleHelper
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +40,12 @@ class ProductActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        Log.e("Product", "Imagen URL: http://40.89.147.152:8080/MyApp/uploads/" + product.id)
 
+        Picasso.get()
+            .load("http://40.89.147.152:8080/MyApp/uploads/" + product.id)
+            .into(binding.imgProd)
+        binding.nameUser.text = product.usuario.name
         binding.priceProd.text = product.price.toString()
         binding.nameProd.text = product.name
         //binding.nameUser.text = product.user.name
@@ -76,16 +82,16 @@ class ProductActivity : AppCompatActivity() {
             Thread{
 
                 val newUser = UserEntity(
-                    name = product.user.name,
-                    email = product.user.email,
-                    password = product.user.password,
-                    poblacion = product.user.poblacion
+                    name = product.usuario.name,
+                    email = product.usuario.email,
+                    password = product.usuario.password,
+                    poblacion = product.usuario.poblacion
                 )
 
                 val newCategory = CategoryEntity(
-                    id = product.category.id,
-                    name = product.category.name,
-                    description = product.category.description
+                    id = product.categoria.id,
+                    name = product.categoria.name,
+                    description = product.categoria.description
                 )
 
                 val newProduct = ProductEntity(

@@ -1,6 +1,7 @@
 package com.example.proyecto.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.example.proyecto.R
 import com.example.proyecto.api.Product
 import com.example.proyecto.api.ProductEntity
 import com.example.proyecto.databinding.ItemProductBinding
+import com.squareup.picasso.Picasso
 
 class FavProductAdapter (private val products: List<ProductEntity>?, private val listener: OnClickListener):
     RecyclerView.Adapter<FavProductAdapter.ViewHolder>() {
@@ -41,6 +43,7 @@ class FavProductAdapter (private val products: List<ProductEntity>?, private val
             setListener(product)
             binding.txtPrice.text = product.price.toString()
             binding.txtName.text = product.name
+
         }
     }
 }

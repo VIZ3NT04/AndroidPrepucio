@@ -1,9 +1,14 @@
 package com.example.proyecto.api
 
+import okhttp3.MultipartBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiGrupoAService {
@@ -33,6 +38,17 @@ interface ApiGrupoAService {
     // ***********  Cambiar  ************//
     @GET("productos/listarProductosPorCategoria")
     suspend fun listProductsCategory(@Body category: Category): List<Product>
+
+
+    @Multipart
+    @POST("uploads/imagen/{articuloId}")
+    fun subirImagen(
+        @Path("articuloId") articuloId: Int,
+        @Part file: MultipartBody.Part
+    ): Call<Map<String, String>>
+
+    @GET("uploads/{id}")
+    fun cargarImagen(@Path("id") id: Int): String
 
     //@PUT()
 }

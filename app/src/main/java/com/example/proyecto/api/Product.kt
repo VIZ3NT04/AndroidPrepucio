@@ -6,14 +6,15 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 data class Product(
+    val id:Int,
     val name:String,
     val description:String,
-    val category:Category,
+    val categoria:Category,
     val price:Float,
-    val user:User,
-    val antiquity:String
+    val usuario:User,
+    val antiquity:String,
     //val etiqueta:List<String>,
-    //val foto:List<Photo>
+    //val foto:Photo?
 ) : Serializable
 
 data class Category(

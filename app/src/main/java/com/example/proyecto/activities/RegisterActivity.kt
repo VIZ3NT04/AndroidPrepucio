@@ -68,7 +68,8 @@ class RegisterActivity : AppCompatActivity() {
                             name = txtName,
                             email = txtEmail,
                             password = txtPassword,
-                            poblacion = txtLocation
+                            poblacion = txtLocation,
+                            id = -1
                         )
 
                         val user = RetrofitInstance.api.registerUser(newUser)

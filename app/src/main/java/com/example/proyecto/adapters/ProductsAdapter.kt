@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.R
 import com.example.proyecto.api.Product
+import com.example.proyecto.api.RetrofitInstance
 import com.example.proyecto.databinding.ItemProductBinding
+import com.squareup.picasso.Picasso
 
 class ProductsAdapter (private val products: List<Product>?, private val listener: OnClickListener):
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
@@ -38,6 +40,10 @@ class ProductsAdapter (private val products: List<Product>?, private val listene
 
         with(holder) {
             setListener(product)
+            Picasso.get()
+                .load("http://40.89.147.152:8080/MyApp/uploads/" + product.id)
+                .into(binding.imgProduct)
+
             binding.txtPrice.text = product.price.toString()
             binding.txtName.text = product.name
         }
