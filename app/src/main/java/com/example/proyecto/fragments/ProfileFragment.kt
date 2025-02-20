@@ -9,12 +9,12 @@ import com.example.proyecto.R
 import com.example.proyecto.api.User
 
 class ProfileFragment : Fragment() {
-    private lateinit var user: User
+    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            user = it.getSerializable("User") as User
+            user = it.getSerializable("User") as? User
         }
     }
 
@@ -22,10 +22,20 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_perfil, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        user?.let {
+            loadFragment(MapsFragment.newInstance(it)) // Pasar el usuario a MapsFragment
+        }
+    }
 
-
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+    private fun loadFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.mapsContainer, fragment) // Asegurar que coincida con el ID del XML
+            .commit()
     }
 
     companion object {

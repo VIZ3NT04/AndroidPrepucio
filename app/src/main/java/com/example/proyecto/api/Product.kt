@@ -27,12 +27,6 @@ data class Category(
     }
 }
 
-data class Photo(
-    val id:Int,
-    val url:String
-): Serializable
-
-
 @Entity(tableName = "products")
 class ProductEntity (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
