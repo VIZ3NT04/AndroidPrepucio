@@ -59,13 +59,23 @@ class HomeFragment : Fragment(), OnClickListener {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                products = RetrofitInstance.api.listProducts()
+                val allProducts = RetrofitInstance.api.listProducts()
+
+                // Filtrar productos que no pertenecen al usuario
+                val filteredProducts = allProducts.filter { it.usuario.id != user.id }
+
+                // Actualizar la UI en el hilo principal
+                requireActivity().runOnUiThread {
+                    productsAdapter = ProductsAdapter(filteredProducts, this@HomeFragment)
+                    binding.recyclerProducts.adapter = productsAdapter
+                }
 
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()
                 Log.e("Registro", "Error HTTP ${e.code()}: $errorBody")
             }
         }
+
 
         Thread.sleep(200)
 

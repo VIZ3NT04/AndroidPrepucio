@@ -37,6 +37,7 @@ class CategoryActivity : AppCompatActivity(), OnClickListener {
     private lateinit var productsAdapter: ProductsAdapter
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var category: Category
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class CategoryActivity : AppCompatActivity(), OnClickListener {
 
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         category = intent.getSerializableExtra("Category") as Category
+        user = intent.getSerializableExtra("User") as User
 
         setContentView(binding.root)
 
@@ -60,7 +62,9 @@ class CategoryActivity : AppCompatActivity(), OnClickListener {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                products = RetrofitInstance.api.listProductsCategory(category)
+
+                products = RetrofitInstance.api.listProducts()
+
 
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()

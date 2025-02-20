@@ -40,6 +40,7 @@ class ProductsAdapter (private val products: List<Product>?, private val listene
 
         with(holder) {
             setListener(product)
+
             Picasso.get()
                 .load("http://40.89.147.152:8080/MyApp/uploads/" + product.id)
                 .into(binding.imgProduct)

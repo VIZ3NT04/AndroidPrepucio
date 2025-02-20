@@ -80,6 +80,7 @@ class CategoriesActivity : AppCompatActivity(), OnClickListener {
 
         val intent = Intent(this, CategoryActivity::class.java)
         intent.putExtra("Category", category)
+        intent.putExtra("User", user)
         startActivity(intent)
     }
 
