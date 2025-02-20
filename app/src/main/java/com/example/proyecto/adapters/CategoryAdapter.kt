@@ -1,6 +1,7 @@
 package com.example.proyecto.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +10,18 @@ import com.example.proyecto.R
 import com.example.proyecto.api.Category
 import com.example.proyecto.databinding.ItemCategoryBinding
 
-class CategoryAdapter (private val category: List<Category>?, private val listener: OnClickListener):
-    RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(
+    private var category: List<Category>,
+    private val listener: OnClickListener
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCategoryBinding.bind(view)
-        fun setListener(category: Category){
+        fun setListener(category: Category) {
             binding.root.setOnClickListener {
-                //listener.onClick(movimiento)
+                listener.onClick(category)
             }
         }
     }
@@ -29,16 +32,20 @@ class CategoryAdapter (private val category: List<Category>?, private val listen
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return category!!.size
-    }
+    override fun getItemCount(): Int = category.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val category = category?.get(position) as Category
+        val category = category[position]
 
         with(holder) {
             setListener(category)
             binding.txtNameCat.text = category.name
         }
     }
+
+    fun updateCategories(newCategories: List<Category>) {
+        category = newCategories
+        notifyDataSetChanged()  // Recarga los datos en el RecyclerView
+    }
 }
+

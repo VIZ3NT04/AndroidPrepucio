@@ -47,31 +47,42 @@ class CategoriesActivity : AppCompatActivity(), OnClickListener {
             startActivity(intent)
         }
 
-        gridLayoutManager = GridLayoutManager(this,2)
+        gridLayoutManager = GridLayoutManager(this, 2)
 
-        var categories:List<Category> = listOf()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                categories = RetrofitInstance.api.listCategories()
-
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                Log.e("Category", "Error HTTP ${e.code()}: $errorBody")
-            }
-        }
-
-        categoryAdapter = CategoryAdapter(categories, this)
+        // Inicializa el adaptador con una lista vacía
+        categoryAdapter = CategoryAdapter(listOf(), this)
 
         binding.recyclerCategories.apply {
             layoutManager = gridLayoutManager
             adapter = categoryAdapter
         }
 
+        // Llamada a la API para cargar categorías
+        loadCategories()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun loadCategories() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val categories = RetrofitInstance.api.listCategories()
+                for (category in categories) {
+                    Log.e("Category", "Category: ${category.name}")
+                }
+
+                // Actualizar UI en el hilo principal
+                launch(Dispatchers.Main) {
+                    categoryAdapter.updateCategories(categories)
+                }
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                Log.e("Category", "Error HTTP ${e.code()}: $errorBody")
+            }
         }
     }
 
